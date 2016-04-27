@@ -23,7 +23,18 @@ app.use(express.static('public'));
 //==============
 app.get('/', function(request, response) {
    //response.send('hi there');
-   response.render('home');
+   var favoriteColors = ['purple', 'dark grey', 'khaki'];
+   var favoriteLinks = [
+     {text: 'YouTube', url: 'http://youtube.com'},
+     {text: 'Yahoo', url: 'http://yahoo.com'},
+     {text: 'Vox', url: 'http://vox.vom'}
+   ];
+
+   response.render('home', {
+     title: 'home page', // adds in title tab
+     favorites: favoriteColors,
+     links: favoriteLinks
+   });
 });
 
 app.get('/projects', function(request, response) {

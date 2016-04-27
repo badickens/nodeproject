@@ -2,3 +2,17 @@
 <p>
   I am Bridget.
 </p>
+
+<h2>Favorites List</h2>
+<ul>
+   {{#each favorites as |favorite| }}
+ <li>{{favorite}}</li>
+   {{/each}}
+</ul>
+
+<h2>Favorites Links</h2>
+<ul>
+   {{#each links as |link| }}
+ <li><a href="{{link.url}}">{{link.text}}</a></li>
+   {{/each}}
+</ul>
