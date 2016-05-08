@@ -1,5 +1,14 @@
+* {
+margin: 0px;
+padding: 0px;
+}
+
 body {
   padding-top: 50px;
+}
+
+li {
+  margin-left: 30px;
 }
 .repo-list-stats {
   float: right;
