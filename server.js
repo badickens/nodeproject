@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
 var axios = require('axios');
+var githubService = require('./services/githubServices.js');
 var port = process.env.PORT || 3000;
 
 //================
@@ -45,20 +46,32 @@ app.get('/', function(request, response) {
 });
 
 app.get('/projects', function(request, response) {
+  githubService.githubInfo()
+  .then(function(results) {
+   // console.log(results.data);
+    response.render('projects',
+        {
+          title: 'My Projects',
+          bio: results.bio,
+          repos: results.repos
+        }
+     );
+  });
+});
   var options = {
      headers: {
        'User-Agent': 'badickens'  // required by github's api for identification
      }
   };
 
-  axios.get('https://api.github.com/users/badickens', options)
-     .then(function(results) {
-      // console.log(results.data);
-       response.render('projects', {title: 'My Projects', bio: results.data});
-     });
+
+  //githubService.getRepos()
+  //githubService.getBio()
+  //axios.get('https://api.github.com/users/badickens', options)
+
 
   //response.render('projects', {title: 'My Projects'});
-});
+
 
 app.get('/books', function(request, response) {
   var favoriteBooks = [
