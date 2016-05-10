@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
+var axios = require('axios');
 var port = process.env.PORT || 3000;
 
 //================
@@ -38,8 +39,20 @@ app.get('/', function(request, response) {
 });
 
 app.get('/projects', function(request, response) {
-  response.render('projects');
+  var options = {
+     headers: {
+       'User-Agent': 'badickens'  // required by github's api for identification
+     }
+  };
+  
+  axios.get('https://api.github.com/users/badickens', options)
+     .then(function(results) {
+       console.log(results.data);
+     });
+
+  response.render('projects', {title: 'My Projects'});
 });
+
 app.get('/books', function(request, response) {
   var favoriteBooks = [
       {text: 'Quiet:The Power of Introverts in a World That Can\'t Stop Talking ', url: 'http://www.amazon.com/Quiet-Power-Introverts-World-Talking/dp/0307352153/ref=sr_1_1?s=books&ie=UTF8&qid=1462676499&sr=1-1&keywords=quiet+the+power+of+introverts+in+a+world+that+can%27t+stop+talking', author: 'by Susan Cain'},
