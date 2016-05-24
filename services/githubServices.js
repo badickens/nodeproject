@@ -1,6 +1,7 @@
 var axios = require('axios');
-var express = require('express');
-if(express.env.NODE_ENV === 'development') {
+
+
+if(process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
 
