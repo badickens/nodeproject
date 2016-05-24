@@ -87,6 +87,16 @@ app.get('/books', function(request, response) {
     links: favoriteBooks
   });
 });
+app.get('/projects/:id', function(request,response){
+    var currentProjectName = request.params.id;
+    response.render('project',
+       {
+         title: 'My Projects: ' = currentProjectName,
+         project: {name: currentProjectName }
+       }
+     );
+    //response.send(currentProjectName);
+});
 
 //==============
 // server
