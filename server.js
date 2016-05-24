@@ -49,6 +49,11 @@ app.get('/', function(request, response) {
 app.get('/projects', function(request, response) {
   githubService.githubInfo()
   .then(function(results) {
+
+    var repos = results.repos;
+    repos.forEach(function (repo, index) {
+      repos[index].hasPost = projectInfoService.fileExists(repo.name);
+    });
    // console.log(results.data);
     response.render('projects',
         {
@@ -57,6 +62,9 @@ app.get('/projects', function(request, response) {
           repos: results.repos
         }
      );
+  })
+  .catch(function(err) {
+    console.log('error: ', err)
   });
 });
   var options = {

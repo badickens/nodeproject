@@ -20,13 +20,20 @@
           <span class="repo-list-stat-item"><i class="fa fa-code-fork"></i>1</span>
         </div>
         <h4>
-          {{repo.repos_url}}
-
+           <a href="{{repo.html_url}}">{{repo.name}}</a>
         </h4>
         <p>
-          {{repo.repos_url}}
-          Repo description
+          {{repo.description}}
         </p>
+
+        {{#if repo.hasPost}}
+          <p>
+             <a href="/projects/{{repo.name}}"> More Info </a>
+          </p>
+        {{/if}}
+
+
+
         <p class="repo-list-meta">
           Updated on Jan 1, 2016
         </p>
