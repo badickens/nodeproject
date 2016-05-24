@@ -3,6 +3,7 @@ var app = express();
 var exphbs = require('express-handlebars');
 var axios = require('axios');
 var githubService = require('./services/githubServices.js');
+var projectInfoService = require('./services/projectInfoService.js');
 var port = process.env.PORT || 3000;
 
 //================
@@ -89,15 +90,30 @@ app.get('/books', function(request, response) {
 });
 app.get('/projects/:id', function(request,response){
     var currentProjectName = request.params.id;
+    var currentProject = {};
+
+    projectInfoService.readFile(currentProjectName, function(err, results) {
+       if(err) {
+         currentProject = {
+           post: currentProjectName + 'is invalid'
+         };
+       }else {
+         currentProject = {
+           name: currentProjectName,
+           post: results,
+           url: 'https://github.com/badickens/' + currentProjectName
+         };
+       }
+
     response.render('project',
        {
-         title: 'My Projects: ' = currentProjectName,
-         project: {name: currentProjectName }
+         title: 'My Projects: ' + currentProjectName,
+         project: currentProject
        }
      );
-    //response.send(currentProjectName);
+    //response.send(currentProctName);
+   });
 });
-
 //==============
 // server
 //==============
